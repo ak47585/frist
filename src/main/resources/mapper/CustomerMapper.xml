@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace是本映射文件所对应的DAO -->
+<mapper namespace="zhurui.ssm.dao.CustomerDao">
+    <sql id="customerMapper">
+        customer_id as id,
+        customer_name as name,
+        user_id as userId,
+        create_id as createId,
+        customer_source as dictSource,
+        customer_industry as dictIndustry,
+        customer_level as dictLevel,
+        customer_linkman as linkman,
+        customer_phone as phone,
+        customer_address as address,
+        create_time as createTime
+    </sql>
+    <select id="findList" resultType="Customer">
+        select <include refid="customerMapper"/>
+         from boot_cm_customer
+         <where>
+             <if test="name != null">
+              and customer_name like concat('%', #{name}, '%')
+             </if>
+             <if test="dictSource != null">
+                 and customer_source = #{dictSource}
+             </if>
+             <if test="dictIndustry != null">
+                 and customer_industry = #{dictIndustry}
+             </if>
+             <if test="dictLevel != null">
+                 and customer_level = #{dictLevel}
+             </if>
+         </where>
+    </select>
+    <select id="findById" resultType="Customer">
+        select <include refid="customerMapper"/>
+         from boot_cm_customer
+         where customer_id = #{id}
+    </select>
+    <select id="count" resultType="Integer">
+        select count(customer_id)
+        from boot_cm_customer
+    </select>
+
+    <insert id="add">
+        insert into boot_cm_customer (
+          customer_name,
+          user_id,
+          create_id,
+          customer_source,
+          customer_industry,
+          customer_level,
+          customer_linkman,
+          customer_phone,
+          customer_address,
+          create_time
+        ) values (
+          #{name},
+          #{userId},
+          #{createId},
+          #{dictSource},
+          #{dictIndustry},
+          #{dictLevel},
+          #{linkman},
+          #{phone},
+          #{address},
+          #{createTime}
+        )
+    </insert>
+    <update id="update">
+        update boot_cm_customer
+          set
+            customer_name = #{name},
+            user_id = #{userId},
+            customer_source = #{dictSource},
+            customer_industry = #{dictIndustry},
+            customer_level = #{dictLevel},
+            customer_linkman = #{linkman},
+            customer_phone = #{phone},
+            customer_address = #{address}
+          where
+            customer_id = #{id}
+    </update>
+    <delete id="delete">
+        delete from boot_cm_customer where customer_id = #{id}
+    </delete>
+</mapper>

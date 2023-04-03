@@ -1,0 +1,17 @@
+.box {
+    width: 500px;
+    height: 550px;
+    background-color: #f9f9f9;
+    margin: 100px auto;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 10px 10px 30px #cccccc;
+}
+.box-title {
+    font-size: 20px;
+    color: grey;
+    padding-left: 20px;
+    padding-top: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #dbdbdb;
+}

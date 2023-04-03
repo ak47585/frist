@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace是本映射文件所对应的DAO -->
+<mapper namespace="zhurui.ssm.dao.UserDao">
+    <sql id="userMapper">
+        user_id as id,
+        user_code as code,
+        user_name as name,
+        user_password as password,
+        user_state as state
+    </sql>
+    <select id="findByUserCode" resultType="User">
+        select <include refid="userMapper"/>
+        from boot_cm_user
+        where user_code = #{userCode}
+    </select>
+    <select id="findAll" resultType="User">
+        select <include refid="userMapper"/>
+        from boot_cm_user
+    </select>
+</mapper>
